@@ -107,3 +107,31 @@ for index in range(len(filtered_objects_profits)):
         print('----------')
 
 
+
+
+import pandas
+import seaborn
+
+data = pandas.read_csv('support_data.csv')
+
+segment = list(data['segment'])
+robocats = list(data['robocats'])
+
+# список сегментов, чтобы цикл мог пройти по ним
+names = ['Segment 0', 'Segment 1', 'Segment 2']
+
+# список, в который будем складывать средние значения
+means = []
+
+# внешний цикл по названиям сегментов
+for name in names:
+    # код внутри - почти то же, что было раньше
+    cats = 0
+    counter = 0
+    # внутренний цикл
+    for index in range(len(data)):
+        # в этой строке заменили название сегмента на переменную цикла
+        if segment[index] == name:
+            cats += robocats[index] 
+            counter += 1
+    means.append(cats / counter)
