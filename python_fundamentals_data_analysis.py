@@ -455,3 +455,123 @@
 #     print('Рок слушают больше.')
 # else:
 #     print('Поп и рок слушают одинаково часто.')
+
+
+# import pandas as pd
+# df = pd.read_csv('music_log_upd_col.csv')
+# df['track_name'] = df['track_name'].fillna('unknown')
+# df['artist_name'] = df['artist_name'].fillna('unknown')
+# df = df.dropna(subset=['genre_name'])
+# df.info()
+
+
+
+# # импортируйте библиотеку pandas
+# import pandas
+
+# # считайте csv-файл 'music_log.csv' в переменную df
+# df = pandas.read_csv('music_log.csv')
+
+# # переименуйте названия столбцов df
+# df = df.rename(columns={'  user_id': 'user_id', 'total play': 'total_play', 'Artist': 'artist'})
+
+# # объявите список columns_to_replace с названиями столбцов track, artist, genre
+# columns_to_replace = ['track', 'artist', 'genre']                        
+                       
+# # заполните отсутствующие значения столбцов из списка columns_to_replace значением 'unknown' в цикле
+# for column in columns_to_replace:
+#     df[column] = df[column].fillna('unknown')
+     
+# # удалите строки-дубликаты из датафрейма df
+# df = df.drop_duplicates().reset_index(drop=True) 
+
+# # выведите на экран первые 20 строчек обновлённого набора данных df
+# print(df.head(20)) 
+
+
+
+# import pandas as pd
+# df = pd.read_csv('music_log_upd.csv')
+
+# genre_grouping = df.groupby('user_id')['genre_name']
+
+# def user_genres(group):
+#     for col in group:
+#         if len(col[1]) > 50:
+#             user = col[0]
+#             return user
+
+# search_id = user_genres(genre_grouping)
+
+# music_user = df[df['user_id'] == search_id]
+# music_user = music_user[music_user['total_play_seconds'] !=0]
+
+# # print(music_user)
+
+# sum_music_user = music_user.groupby('genre_name')['total_play_seconds'].sum()
+# # print(sum_music_user)
+# count_music_user = music_user.groupby('genre_name')['genre_name'].count()
+# # print(count_music_user)
+# final_sum = sum_music_user.sort_values(ascending=False)
+# # print(final_sum)
+# final_count = count_music_user.sort_values(ascending=False)
+# print(final_count)
+
+
+
+
+# Начало исследования
+# Обзор данных
+# Исходные данные хранятся в файле .csv. Чтобы исследовать их средствами pandas, эту библиотеку нужно импортировать:
+# import pandas as pd 
+# Тогда станет доступен метод для чтения csv-файлов — read_csv(). Прочитаем файл по адресу из аргумента, преобразуем его в таблицу и сохраним в переменную df:
+# df = pd.read_csv('music_log.csv') 
+# Теперь с данными можно работать. Посмотрим первые 15 строчек таблицы:
+# print(df.head(15)) # выведет первые 15 строк таблицы 
+# Нужно убедиться в том, что данные прошли предобработку. В них не должно быть пропусков и дубликатов.  
+# Пропущенные значения выявляет метод isna(), а подсчитывает — метод sum():
+# # подсчёт пропусков в данных
+# print(df.isna().sum()) 
+# Дубликаты, повторяющиеся строки, выявляют методом duplicated() и подсчитывают тем же sum():
+# # подсчёт дубликатов
+# print(df.duplicated().sum()) 
+# Если обе проверки не выявили проблемы в данных, значит, они готовы для анализа.
+
+
+
+# import pandas as pd
+# df = pd.read_csv('music_log_upd.csv')
+
+# pop_music = df[df['genre_name'] == "pop"]
+
+# pop_music = (pop_music[pop_music['total_play_seconds'] != 0])
+
+# pop_music_max_total_play =  pop_music['total_play_seconds'].max()
+ 
+# # print(pop_music_max_total_play)
+
+# pop_music_max_info = (pop_music[pop_music['total_play_seconds'] == pop_music['total_play_seconds'].max()]) 
+# #print(pop_music_max_info)
+
+# pop_music_min_total_play = pop_music['total_play_seconds'].min()
+# #print(pop_music_min_total_play)
+
+# pop_music_min_info = (pop_music[pop_music['total_play_seconds'] == pop_music['total_play_seconds'].min()]) 
+# #print(pop_music_min_info)
+
+# pop_music_median = pop_music['total_play_seconds'].median()
+# #print(pop_music_median)
+
+# pop_music_mean = pop_music['total_play_seconds'].mean()
+# print(pop_music_mean)
+
+
+# import pandas as pd
+
+# logs = pd.read_csv('/datasets/logs.csv')
+
+# visits = logs.groupby('source')['user_id'].count() # количество визитов
+# purchase = logs.groupby('source')['purchase'].sum() # количество покупок
+
+# conversion = purchase / visits # поделите количество покупок на количество визитов
+# print(conversion)
